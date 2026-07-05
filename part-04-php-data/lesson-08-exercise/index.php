@@ -54,5 +54,17 @@ $list_infor = array(
     'fullname'=>"Nguyễn Văn Tiến",
     'age'=>'24',
     'dateOfBirth'=> '2002',
+    'weight'=>'63kg',
 );
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bâì tập phần 4</title>
+</head>
+<body>
+    <p>Tôi là <?php echo $list_infor['fullname']?>, sinh năm <?php echo $list_infor['dateOfBirth']?>, nặng <?php echo $list_infor['weight']?></p>
+</body>
+</html>
