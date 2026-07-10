@@ -7,6 +7,15 @@
 //         echo "{$n} is number odd";
 //     }
 // }
+
+
+function show_array($data){
+    if(is_array($data)){
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
+    }
+}
 function check_Even($n){
     if($n % 2 == 0){
         return true;
@@ -66,4 +75,7 @@ function get_list_post_by_id($id){
     }
     return null;
 }
+
+$test = get_list_post_by_id(2);
+show_array($test);
 ?>
