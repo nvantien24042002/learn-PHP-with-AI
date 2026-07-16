@@ -30,7 +30,7 @@ $selected_category = $_GET['category'] ?? 'ALL';
 
 foreach ($product as $item) {
     if ($selected_category == 'ALL' || $item['category'] == $selected_category) {
-        echo "<li>" . $item['name'] . " (" . $item['category'] . ")</li>";
+        echo "<li>" . $item['name'] . "</li>";
     }
 }
 ?>
