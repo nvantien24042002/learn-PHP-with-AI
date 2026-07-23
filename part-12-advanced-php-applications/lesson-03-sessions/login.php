@@ -60,7 +60,6 @@ if (isset($_POST['btn_login'])) {
         <input type="password" name="password" id="password" /><br>
         <p class="error"><?php if (!empty($error['password'])) echo $error['password']; ?></p>
         <br>
-        
         <input type="submit" name="btn_login" value="Login"/>
     </form>
 </body>

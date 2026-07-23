@@ -33,6 +33,12 @@ if (isset($_POST['btn_login'])) {
         if ($username == $data['username'] && $password == $data['password']) {
             $_SESSION['is_login'] = true;
             $_SESSION['user_login'] = 'tiennguyen';
+            // Xử lý cookies
+            if (isset($_POST['remember_me'])) {
+                // Thiết lập Cookie tồn tại trong vòng 7 ngày (7 * 24 * 60 * 60 giây)
+                setcookie('is_login', true, time() + 3600, "/");
+                setcookie('user_login', 'tiennguyen', time() + 3600, "/");
+            }
             header("Location: index.php");
             exit();
         }else{
@@ -60,7 +66,9 @@ if (isset($_POST['btn_login'])) {
         <input type="password" name="password" id="password" /><br>
         <p class="error"><?php if (!empty($error['password'])) echo $error['password']; ?></p>
         <br>
-        
+        <!-- Ghi nhớ đăng nhập -->
+        <input type="checkbox" name="remember_me" id="remember_me" value="yes">
+        <label for="remember_me">Ghi nhớ đăng nhập</label><br><br>
         <input type="submit" name="btn_login" value="Login"/>
     </form>
 </body>
