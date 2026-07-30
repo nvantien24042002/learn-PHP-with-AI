@@ -9,3 +9,12 @@
 ### Luồng xử lý 
 + Người dùng muốn vào hệ thống cần login
 + Nếu chưa login cố tình truy cập sẽ bị đẩy ra trang login
+### Checklist xây dựng chức năng
++ Xây dựng database
++ Xây dựng giao diện
++ Ý tưởng lưu trữ thông tin phiên login
++ Validation form
++ Viết chức năng login
++ Hiển thị thông tin đăng nhập
++ Xử lý chuyển hướng khi chưa login
++ Xử lý logout
