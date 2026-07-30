@@ -18,3 +18,7 @@
 + Hiển thị thông tin đăng nhập
 + Xử lý chuyển hướng khi chưa login
 + Xử lý logout
+# 1. Xây dựng database ứng dụng - (Mảng hai chiều)
++ Lưu trữ mảng dạng user
++ Lưu trữ nhiều user
++ Thông tin bao gồm: id,username,password,fullname,email
