@@ -10,6 +10,10 @@
 <body>
     <div id="wrapper">
         <header id="header">
+            <a id="logo">UNITOP</a>
+            <div id="user-login">
+                <p>Xin chào <strong>Admin</strong> (<a href="">Thoát</a>)</p>
+            </div>
             <nav>
                 <ul id="main-menu">
                     <li><a href="?page=home">Home</a></li>

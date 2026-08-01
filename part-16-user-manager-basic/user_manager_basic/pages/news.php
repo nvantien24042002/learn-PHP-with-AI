@@ -1,4 +1,5 @@
 <?php require __DIR__ . '/../lib/data.php'; ?>
+<?php get_header() ?>
 <div id="content">
     <h1>News Page</h1>
 
@@ -7,3 +8,4 @@
         <p><?php echo $item['desc']; ?></p>
     <?php } ?>
 </div>
+<?php get_footer() ?>

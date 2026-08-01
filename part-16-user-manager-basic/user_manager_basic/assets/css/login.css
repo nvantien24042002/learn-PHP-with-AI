@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 26px;
+    background: #029ef3;
+}
+#wp-form-login {
+    max-width: 400px;
+    background: #fff;
+    border-radius: 3px;
+    padding: 30px 20px;
+    margin: 50px auto;
+    text-align: center;
+}
+#wp-form-login h1 {
+    color: #333333;
+    font-size: 20px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+#wp-form-login input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    background-color: #f3f4f6; /* Màu nền xám nhạt cho input */
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+}
+#wp-form-login .btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: #3b82f6; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    transition: background-color 0.2s;
+}
