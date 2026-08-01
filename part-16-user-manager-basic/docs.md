@@ -22,3 +22,11 @@
 + Lưu trữ mảng dạng user
 + Lưu trữ nhiều user
 + Thông tin bao gồm: id,username,password,fullname,email
+# 2. Ý tưởng lưu trữ phiên Login 
++ Sau khi login cần lưu trữ 
+ + Trạng thái login
+ + User login
++ Công cụ lưu trữ : Session
+
+$_SESSION['is_login'] = true;
+$_SESSION['user_login'] = 'tien';
