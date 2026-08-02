@@ -11,12 +11,43 @@ body {
     padding: 30px 20px;
     margin: 50px auto;
     text-align: center;
+    position: relative;
 }
 #wp-form-login h1 {
     color: #333333;
     font-size: 20px;
     margin-bottom: 30px;
     font-weight: bold;
+}
+.form-group {
+    position: relative;
+    margin-bottom: 25px; /* Tạo khoảng cách giữa các ô */
+}
+.tooltip-error {
+    position: absolute;
+    top: 50%;
+    left: 105%; /* Đẩy tooltip sang bên phải ô input */
+    transform: translateY(-50%);
+    background-color: #ff4d4d; /* Màu đỏ báo lỗi */
+    color: #ffffff;
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 4px;
+    white-space: nowrap; /* Giữ nội dung lỗi trên một dòng */
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Tạo mũi tên nhỏ trỏ vào ô input cho tooltip */
+.tooltip-error::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%; /* Đặt mũi tên sang cạnh trái của tooltip */
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #ff4d4d transparent transparent;
 }
 #wp-form-login input {
     width: 100%;

@@ -30,3 +30,9 @@
 
 $_SESSION['is_login'] = true;
 $_SESSION['user_login'] = 'tien';
+
+# 4. Chuẩn hóa dữ liệu form 
++ Thông báo dữ liệu rỗng 
++ ĐÚng định dạng
+  + Username /^[A-Za-z0-9_\.]{6,32}$/
+  + Password /^([A-Z]){1}([\w_\.!@#$%^&*()]+){5,31}$/
