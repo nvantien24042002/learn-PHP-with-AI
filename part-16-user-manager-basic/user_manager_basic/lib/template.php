@@ -20,7 +20,7 @@ function get_footer() {
 }
 
 function get_404() {
-    $path_error = "pages/errors.php";
+    $path_error = "pages/404.php";
 
     if (file_exists($path_error)) {
         require $path_error;
