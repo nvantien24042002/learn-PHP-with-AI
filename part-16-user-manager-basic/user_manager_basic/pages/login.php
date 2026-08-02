@@ -1,7 +1,4 @@
 <?php
-
-use GuzzleHttp\Psr7\Header;
-
 if(isset($_POST['btn-login'])){
     $error = array();
     // username
