@@ -12,7 +12,7 @@
         <header id="header">
             <a id="logo">UNITOP</a>
             <div id="user-login">
-                <p>Xin chào <strong>Admin</strong> (<a href="">Thoát</a>)</p>
+                <p>Xin chào <strong><?php if(isset($_SESSION['user_login'])) echo $_SESSION['user_login'] ?></strong> (<a href="">Thoát</a>)</p>
             </div>
             <nav>
                 <ul id="main-menu">

@@ -1,38 +1,36 @@
-# MÔ TẢ YÊU CẦU HỆ THÔNG 
-## Giúp người dùng đi vào hệ thống theo tài khoản 
-## Phân chia việc sử dụng tài nguyên hệ thống theo đối tượng 
+# SYSTEM REQUIREMENT DESCRIPTION
+## Allow users to access the system via accounts
+## Allocate system resource usage based on user roles
 
-## Form login
+## Login Form
 - Username
 - Password
 
-### Luồng xử lý 
-+ Người dùng muốn vào hệ thống cần login
-+ Nếu chưa login cố tình truy cập sẽ bị đẩy ra trang login
-### Checklist xây dựng chức năng
-+ Xây dựng database
-+ Xây dựng giao diện
-+ Ý tưởng lưu trữ thông tin phiên login
-+ Validation form
-+ Viết chức năng login
-+ Hiển thị thông tin đăng nhập
-+ Xử lý chuyển hướng khi chưa login
-+ Xử lý logout
-# 1. Xây dựng database ứng dụng - (Mảng hai chiều)
-+ Lưu trữ mảng dạng user
-+ Lưu trữ nhiều user
-+ Thông tin bao gồm: id,username,password,fullname,email
-# 2. Ý tưởng lưu trữ phiên Login 
-+ Sau khi login cần lưu trữ 
- + Trạng thái login
- + User login
-+ Công cụ lưu trữ : Session
+### Processing Flow
++ Users must log in to access the system
++ If a user attempts to access without logging in, they will be redirected to the login page
 
+### Checklist for Feature Implementation
++ Build database
++ Build user interface
++ Conceptualize login session storage
++ Form validation
++ Write login functionality
++ Display login information
++ Handle redirection for unauthenticated access
++ Handle logout
+
+# 1. Building Application Database - (Two-dimensional array)
++ Store array in user format
++ Store multiple users
++ Information includes: id, username, password, fullname, email
+
+# 2. Login Session Storage Concept
++ Post-login storage requirements:
+  + Login status
+  + Logged-in user
++ Storage tool: Session
+
+```php
 $_SESSION['is_login'] = true;
 $_SESSION['user_login'] = 'tien';
-
-# 4. Chuẩn hóa dữ liệu form 
-+ Thông báo dữ liệu rỗng 
-+ ĐÚng định dạng
-  + Username /^[A-Za-z0-9_\.]{6,32}$/
-  + Password /^([A-Z]){1}([\w_\.!@#$%^&*()]+){5,31}$/

@@ -1,13 +1,15 @@
 <?php
-require 'lib/validation.php';
+
+use GuzzleHttp\Psr7\Header;
+
 if(isset($_POST['btn-login'])){
     $error = array();
     // username
     if (empty($_POST['username'])) {
-        $error['username'] = "Không được để trống trường username";
+        $error['username'] = "Username cannot be left blank";
     }else{
         if (!is_username($_POST['username'])) {
-            $error['username'] = "Username yêu cầu ký tự, chữ số, dấu chấm, dấu gạch dưới, từ 6 đến 32 ký tự";
+            $error['username'] = "Username requires letters, numbers, dots, underscores, from 6 to 32 characters";
         } else {
             $username = $_POST['username'];
             echo $username;
@@ -15,17 +17,20 @@ if(isset($_POST['btn-login'])){
     }
     //password
     if (empty($_POST['password'])) {
-        // Hạ cờ
-        $error['password'] = "Không được để trống trường Password";
+        $error['password'] = "Password cannot be left blank";
     } else {
         if (!is_password($_POST['password'])) {
-            $error['password'] = "Password phải bắt đầu bằng chữ hoa, chứa chữ cái, chữ số hoặc ký tự đặc biệt, từ 6 đến 32 ký tự";
+            $error['password'] = "Password must start with an uppercase letter, contain letters, numbers, or special characters, from 6 to 32 characters";
         }else {
             $password = $_POST['password'];
         }
     }
     if(empty($error)){
-        echo "Đăng ký thành công !<br>";
+        if(check_login($username,$password)){
+            $_SESSION['is_login'] = true;
+            $_SESSION['user_login'] = $username;
+            redirect_to('?page=home');
+        }
     }
 }
 ?>
@@ -36,11 +41,11 @@ if(isset($_POST['btn-login'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/login.css">
-    <title>Document</title>
+    <title>Login</title>
 </head>
 <body>
     <div id="wp-form-login">
-            <h1>ĐĂNG NHẬP</h1>
+            <h1>LOGIN</h1>
             <form method="post">
                 <div class="form-group">
                     <input type="text" name="username" value="" placeholder="Username" />
@@ -50,9 +55,9 @@ if(isset($_POST['btn-login'])){
                     <input type="password" name="password" value="" placeholder="Password" />
                     <?php form_error('password'); ?><br>
                 </div>
-                <input type="submit" class="btn-login" name="btn-login" value="Đăng nhập" />
+                <input type="submit" class="btn-login" name="btn-login" value="Sign In" />
             </form>
-            <a href="">Quên Mật Khẩu</a>
+            <a href="">Forgot Password?</a>
     </div>
 </body>
 </html>
