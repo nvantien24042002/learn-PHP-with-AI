@@ -33,4 +33,8 @@
 
 ```php
 $_SESSION['is_login'] = true;
-$_SESSION['user_login'] = 'tien';
+$_SESSION['user_login'] = 'tien'; 
+# 6. Display login information
+Welcome the logged-in user
+
+Display a logout link to help users exit the login session
