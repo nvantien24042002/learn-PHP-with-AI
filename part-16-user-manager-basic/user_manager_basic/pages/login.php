@@ -26,7 +26,10 @@ if(isset($_POST['btn-login'])){
         if(check_login($username,$password)){
             $_SESSION['is_login'] = true;
             $_SESSION['user_login'] = $username;
-            redirect_to('?page=home');
+            if (isset($_POST['remember_me'])) {
+                setcookie('remember_me', $username, time() + 3600, "/");
+            }
+            redirect_to("?page=home");
         }
     }
 }
@@ -51,6 +54,12 @@ if(isset($_POST['btn-login'])){
                 <div class="form-group">
                     <input type="password" name="password" value="" placeholder="Password" />
                     <?php form_error('password'); ?><br>
+                </div>
+                <div class="form-group remember-group">
+                    <label for="remember_me">
+                        <input type="checkbox" name="remember_me" id="remember_me">
+                        <span>Remember me</span>
+                    </label>
                 </div>
                 <input type="submit" class="btn-login" name="btn-login" value="Sign In" />
             </form>
