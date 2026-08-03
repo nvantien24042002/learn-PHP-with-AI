@@ -48,7 +48,7 @@ if(isset($_POST['btn-login'])){
             <h1>LOGIN</h1>
             <form method="post">
                 <div class="form-group">
-                    <input type="text" name="username" value="" placeholder="Username" />
+                    <input type="text" name="username" value="<?php set_value('username') ?>>" placeholder="Username" />
                     <?php form_error('username'); ?><br>
                 </div>
                 <div class="form-group">

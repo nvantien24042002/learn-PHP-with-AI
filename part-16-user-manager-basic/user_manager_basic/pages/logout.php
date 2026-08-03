@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // Xóa toàn bộ Session
 session_unset();
