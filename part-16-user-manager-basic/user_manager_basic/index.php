@@ -10,7 +10,6 @@ require 'lib/validation.php';
 require 'lib/users.php';
 require 'lib/url.php';
 if (!is_login() && isset($_COOKIE['remember_me'])) {
-
     $username = $_COOKIE['remember_me'];
     // Khôi phục Session
     $_SESSION['is_login'] = true;
