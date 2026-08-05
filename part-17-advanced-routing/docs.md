@@ -29,4 +29,4 @@ Limitations become apparent when the system has many modules:
 3. Create file path
     + $path = "modules/{$mod}/{$act}.php";
 4. Include current handler file
-    + require($path);
+    + require($path);x`
