@@ -11,3 +11,13 @@
 
 ```html
 <a href="?mod=product&act=main&cat_id=10"></a>
+LIMITATIONS
+Limitations become apparent when the system has many modules:
+
+Causes confusion
+
+Difficult to manage the system
+
+Difficult to manage code
+
+Difficult to find files when processing/modifying
