@@ -1,4 +1,8 @@
 <?php
+require 'data/product.php';
+require 'data/pages.php';
+?>
+<?php
 $mod = !empty($_GET['mod']) ? $_GET['mod'] : 'home';
 $act = !empty($_GET['act']) ? $_GET['act'] : 'main';
 $path = "modules/{$mod}/{$act}.php";
