@@ -1,6 +1,6 @@
 <div id="footer-wp">
     <div class="wp-inner">
-        <p id="copyright">© 2026 Copyright hue.vn</p>
+        <p id="copyright">© 2026 Copyright nuocdahue.vn. All rights reserved by the ice water seller.   </p>
     </div>
 </div>
 </div>

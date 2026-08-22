@@ -77,5 +77,6 @@ function update_cart($qty) {
         // Tính lại sub_total = số lượng mới * giá sản phẩm
         $_SESSION['cart']['buy'][$id]['sub_total'] = $new_qty * $_SESSION['cart']['buy'][$id]['price'];
     }
+    update_infor_cart();
 }
 ?>
