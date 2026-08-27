@@ -7,3 +7,17 @@ Lưu trữ gì ?
     + Sản phẩm
     + Danh mục sản phẩm
     + Đơn hàng
+
+19.2: Cách tổ chức bảng trong CSDL
+   + Dữ liệu được lưu dạng bảng bao gồm các cột, các dòng
+   + Cột biểu thị thuộc tính của thực thể như :id,title,price
+   + Hàng biểu thị thông tin của một thực thể nào đó 
+   + Giá trị nằm ở điểm giao giữa cột và hàng được gọi là ô 
+   + Nếu bảng chứa một hoặc nhiều cột dùng phân biệt các hàng khác nhau được gọi là khóa chính 
+
+Xây dựng cột trong CSDL
+   + Cột trong bảng dùng để định nghĩa các thuộc tính của thực thể
+   + Cột có kiểu dữ liệu thích hợp với tính chất thuộc tính được lưu trữ: char,varchar,Int,Datetime
+   + Cột có thể cho phép NULL hoặc không NULL
+   + Có thể gán giá trị mặc định cho cột khi không được thiết lập giá trị
+   + Bảng có thể chứa cột mà giá trị nó có thể tự tăng (Auto increment)
