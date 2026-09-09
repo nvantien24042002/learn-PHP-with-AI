@@ -1,7 +1,7 @@
 <?php
 require_once "config/database.php";
 echo "<br>";
-$sql = "SELECT * FROM categories";
+$sql = "SELECT * FROM categories WHERE id = 2";
 // Gửi thực thi truy vấn
 $result = mysqli_query($conn, $sql);
 // mysqli_fetch_assoc : Lấy từng row từ kết quả
