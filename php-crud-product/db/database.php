@@ -1,124 +1,159 @@
 <?php
-
-// Hàm kết nối dữ liệu
-function db_connect() {
+function db_connect(array $db)
+{
     global $conn;
-    $db = func_get_arg(0);
-    $conn = mysqli_connect($db['hostname'], $db['username'], $db['password'], $db['database']);
+
+    $conn = mysqli_connect(
+        $db["hostname"],
+        $db["username"],
+        $db["password"],
+        $db["database"]
+    );
+
     if (!$conn) {
-        die("Kết nối không thành công ".mysqli_connect_error());
+        http_response_code(500);
+        exit("Database connection failed.");
     }
-//    else{
-//        echo "Connect thành công";
-//    }
+
+    mysqli_set_charset($conn, "utf8mb4");
 }
 
-//Thực thi chuổi truy vấn
-function db_query($query_string) {
+function db_query($query_string)
+{
     global $conn;
     $result = mysqli_query($conn, $query_string);
+
     if (!$result) {
-        db_sql_error('Query Error', $query_string);
+        db_sql_error("Query error", $query_string);
     }
+
     return $result;
 }
 
-// Lấy một dòng trong CSDL
-function db_fetch_row($query_string) {
-    global $conn;
-    $result = array();
+function db_fetch_row($query_string)
+{
     $mysqli_result = db_query($query_string);
     $result = mysqli_fetch_assoc($mysqli_result);
     mysqli_free_result($mysqli_result);
+
     return $result;
 }
 
-//Lấy một mảng trong CSDL
-function db_fetch_array($query_string) {
-    global $conn;
-    $result = array();
+function db_fetch_array($query_string)
+{
+    $result = [];
     $mysqli_result = db_query($query_string);
+
     while ($row = mysqli_fetch_assoc($mysqli_result)) {
         $result[] = $row;
     }
+
     mysqli_free_result($mysqli_result);
     return $result;
 }
-//Lấy số bản ghi
-function db_num_rows($query_string) {
-    global $conn;
+
+function db_num_rows($query_string)
+{
     $mysqli_result = db_query($query_string);
-	return mysqli_num_rows($mysqli_result);
+    $count = mysqli_num_rows($mysqli_result);
+    mysqli_free_result($mysqli_result);
+
+    return $count;
 }
 
-function db_insert($table, $data) {
+function db_insert($table, array $data)
+{
     global $conn;
-    $fields = "(" . implode(", ", array_keys($data)) . ")";
-    $values = "";
-    foreach ($data as $field => $value) {
-        if ($value === NULL)
-            $values .= "NULL, ";
-        else
-            $values .= "'" . escape_string($value) . "', ";
+    $table = db_identifier($table);
+    $fields = array_map("db_identifier", array_keys($data));
+    $values = array_values($data);
+    $placeholders = implode(", ", array_fill(0, count($values), "?"));
+    $sql = "INSERT INTO `{$table}` (`" . implode("`, `", $fields) . "`) VALUES ({$placeholders})";
+    $stmt = mysqli_prepare($conn, $sql);
+    db_bind_values($stmt, $values);
+
+    if (!mysqli_stmt_execute($stmt)) {
+        db_sql_error("Insert error", $sql);
     }
-    $values = substr($values, 0, -2);
-    db_query("
-            INSERT INTO `{$table}` $fields
-            VALUES($values)
-        ");
+
     return mysqli_insert_id($conn);
 }
 
-function db_update($table, $data, $where) {
+function db_update($table, array $data, $where)
+{
     global $conn;
-    $sql = "";
+    $table = db_identifier($table);
+    $sets = [];
+    $values = [];
+
     foreach ($data as $field => $value) {
-        if ($value === NULL)
-            $sql .= "$field=NULL, ";
-        else
-            $sql .= "$field='" . escape_string($value) . "', ";
+        $sets[] = "`" . db_identifier($field) . "` = ?";
+        $values[] = $value;
     }
-    $sql = substr($sql, 0, -2);
-    db_query("
-            UPDATE `{$table}`
-            SET $sql
-            WHERE $where
-   ");
-    return mysqli_affected_rows($conn);
+
+    $sql = "UPDATE `{$table}` SET " . implode(", ", $sets) . " WHERE {$where}";
+    $stmt = mysqli_prepare($conn, $sql);
+    db_bind_values($stmt, $values);
+
+    if (!mysqli_stmt_execute($stmt)) {
+        db_sql_error("Update error", $sql);
+    }
+
+    return mysqli_stmt_affected_rows($stmt);
 }
 
-function db_delete($table, $where) {
+function db_delete($table, $where)
+{
     global $conn;
-    $query_string = "DELETE FROM `{$table}` WHERE $where";
-    db_query($query_string);
-    return mysqli_affected_rows($conn);
+    $table = db_identifier($table);
+    $sql = "DELETE FROM `{$table}` WHERE {$where}";
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if (!mysqli_stmt_execute($stmt)) {
+        db_sql_error("Delete error", $sql);
+    }
+
+    return mysqli_stmt_affected_rows($stmt);
 }
 
-function escape_string($str) {
+function escape_string($str)
+{
     global $conn;
     return mysqli_real_escape_string($conn, $str);
 }
 
-// Hiển thị lỗi SQL
+function db_identifier($identifier)
+{
+    if (!preg_match("/^[A-Za-z_][A-Za-z0-9_]*$/", $identifier)) {
+        throw new InvalidArgumentException("Invalid database identifier.");
+    }
 
-function db_sql_error($message, $query_string = "") {
-    global $conn;
+    return $identifier;
+}
 
-    $sqlerror = "<table width='100%' border='1' cellpadding='0' cellspacing='0'>";
-    $sqlerror.="<tr><th colspan='2'>{$message}</th></tr>";
-    $sqlerror.=($query_string != "") ? "<tr><td nowrap> Query SQL</td><td nowrap>: " . $query_string . "</td></tr>\n" : "";
-    $sqlerror.="<tr><td nowrap> Error Number</td><td nowrap>: " . mysqli_errno($conn) . " " . mysqli_error($conn) . "</td></tr>\n";
-    $sqlerror.="<tr><td nowrap> Date</td><td nowrap>: " . date("D, F j, Y H:i:s") . "</td></tr>\n";
-    $sqlerror.="<tr><td nowrap> IP</td><td>: " . getenv("REMOTE_ADDR") . "</td></tr>\n";
-    $sqlerror.="<tr><td nowrap> Browser</td><td nowrap>: " . getenv("HTTP_USER_AGENT") . "</td></tr>\n";
-    $sqlerror.="<tr><td nowrap> Script</td><td nowrap>: " . getenv("REQUEST_URI") . "</td></tr>\n";
-    $sqlerror.="<tr><td nowrap> Referer</td><td nowrap>: " . getenv("HTTP_REFERER") . "</td></tr>\n";
-    $sqlerror.="<tr><td nowrap> PHP Version </td><td>: " . PHP_VERSION . "</td></tr>\n";
-    $sqlerror.="<tr><td nowrap> OS</td><td>: " . PHP_OS . "</td></tr>\n";
-    $sqlerror.="<tr><td nowrap> Server</td><td>: " . getenv("SERVER_SOFTWARE") . "</td></tr>\n";
-    $sqlerror.="<tr><td nowrap> Server Name</td><td>: " . getenv("SERVER_NAME") . "</td></tr>\n";
-    $sqlerror.="</table>";
-    $msgbox_messages = "<meta http-equiv=\"refresh\" content=\"9999\">\n<table class='smallgrey' cellspacing=1 cellpadding=0>" . $sqlerror . "</table>";
-    echo $msgbox_messages;
-    exit;
+function db_bind_values($stmt, array $values)
+{
+    $types = "";
+    $references = [];
+
+    foreach ($values as $key => $value) {
+        if (is_int($value)) {
+            $types .= "i";
+        } elseif (is_float($value)) {
+            $types .= "d";
+        } else {
+            $types .= "s";
+        }
+
+        $references[$key] = &$values[$key];
+    }
+
+    mysqli_stmt_bind_param($stmt, $types, ...$references);
+}
+
+function db_sql_error($message, $query_string = "")
+{
+    error_log($message . ($query_string ? ": " . $query_string : ""));
+    http_response_code(500);
+    exit("A database error occurred.");
 }

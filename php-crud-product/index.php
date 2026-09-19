@@ -2,8 +2,8 @@
 require_once __DIR__ . "/db/bootstrap.php";
 
 $message = $_GET["message"] ?? "";
-$result = mysqli_query($conn, "SELECT id, name, price, description FROM products ORDER BY id DESC");
-$count = mysqli_num_rows($result);
+$count = db_num_rows("SELECT id FROM products");
+$products = db_fetch_array("SELECT id, name, price, description FROM products ORDER BY id DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +41,7 @@ $count = mysqli_num_rows($result);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                    <?php foreach ($products as $row) { ?>
                         <tr>
                             <td><?php echo e($row["id"]); ?></td>
                             <td><?php echo e($row["name"]); ?></td>

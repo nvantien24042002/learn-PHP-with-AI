@@ -7,11 +7,7 @@ if (!$id || $id < 1) {
     exit("Product not found.");
 }
 
-$stmt = mysqli_prepare($conn, "SELECT id, name, price, description FROM products WHERE id = ?");
-mysqli_stmt_bind_param($stmt, "i", $id);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-$row = mysqli_fetch_assoc($result);
+$row = db_fetch_row("SELECT id, name, price, description FROM products WHERE id = " . $id);
 
 if (!$row) {
     http_response_code(404);
@@ -41,16 +37,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if (!$errors) {
-        $stmtUpdate = mysqli_prepare($conn, "UPDATE products SET name = ?, price = ?, description = ? WHERE id = ?");
-        $priceValue = (float) $price;
-        mysqli_stmt_bind_param($stmtUpdate, "sdsi", $name, $priceValue, $desc, $id);
+        db_update("products", [
+            "name" => $name,
+            "price" => (float) $price,
+            "description" => $desc,
+        ], "id = " . $id);
 
-        if (mysqli_stmt_execute($stmtUpdate)) {
-            header("Location: index.php?message=updated");
-            exit();
-        }
-
-        $errors[] = "The product could not be updated.";
+        header("Location: index.php?message=updated");
+        exit();
     }
 }
 ?>

@@ -24,11 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if (!$errors) {
-        $stmt = mysqli_prepare($conn, "INSERT INTO products (name, price, description) VALUES (?, ?, ?)");
-        $priceValue = (float) $price;
-        mysqli_stmt_bind_param($stmt, "sds", $name, $priceValue, $desc);
+        $productId = db_insert("products", [
+            "name" => $name,
+            "price" => (float) $price,
+            "description" => $desc,
+        ]);
 
-        if (mysqli_stmt_execute($stmt)) {
+        if ($productId) {
             header("Location: index.php?message=created");
             exit();
         }

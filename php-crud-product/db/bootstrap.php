@@ -1,17 +1,17 @@
 <?php
 require_once __DIR__ . "/config.php";
+require_once __DIR__ . "/database.php";
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-$conn = mysqli_connect($host, $username, $password, $database);
-if (!$conn) {
-    http_response_code(500);
-    exit("Database connection failed.");
-}
-
-mysqli_set_charset($conn, "utf8mb4");
+db_connect([
+    "hostname" => $host,
+    "username" => $username,
+    "password" => $password,
+    "database" => $database,
+]);
 
 function e($value)
 {
