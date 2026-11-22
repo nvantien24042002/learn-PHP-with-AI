@@ -77,7 +77,7 @@ $products = db_fetch_array("SELECT id, name, price, description FROM products OR
             </div>
         <?php } ?>
 
-        <p>Total products: <?php echo e($count); ?></p>
+        <p>Total products: <span id="total"><?php echo e($count); ?></span></p>
     </div>
     <script src="js/jquery-4.1.0.min.js"></script>
     <script src="js/delete.js"></script>

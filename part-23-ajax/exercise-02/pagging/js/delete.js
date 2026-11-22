@@ -22,6 +22,9 @@ $(".delete-form").on("submit", function (e) {
                     $(this).remove();
                 });
             }
+            // Giảm tổng số sản phẩm
+            var total = parseInt($("#total").text());
+            $("#total").text(total - 1)
 
         },
 
