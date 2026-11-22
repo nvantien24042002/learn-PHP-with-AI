@@ -11,7 +11,6 @@ $(document).ready(function () {
             method: "POST",
             data: { num_order: num_order, price: price },
             dataType: "json",
-
             success: function (data) {
                 console.log(data);
 
