@@ -11,8 +11,8 @@ $safe_keyword = escape_string($keyword);
 // Lấy 3 cột id, name, price, sắp xếp theo id tăng dần
 $sql = "SELECT id, name, price FROM products WHERE name LIKE '%{$safe_keyword}%' ORDER BY id ASC";
 $products = db_fetch_array($sql);
+// TODO 3: trả về JSON gồm "status" => "success" và "products" => $products
 echo json_encode([
     "status" => "success",
     "products" => $products
 ], JSON_UNESCAPED_UNICODE);
-// TODO 3: trả về JSON gồm "status" => "success" và "products" => $products
