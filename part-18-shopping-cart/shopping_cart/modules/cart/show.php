@@ -46,7 +46,7 @@ $list_buy = get_list_buy_cart();
                                                 </a>
                                             </td>
                                             <td>
-                                                <?php echo format_price($item['price']); ?>đ
+                                                <?php echo format_price($item['price']); ?>
                                             </td>
                                             <td>
                                                 <input
@@ -56,9 +56,10 @@ $list_buy = get_list_buy_cart();
                                                     min="1"
                                                     max="10"
                                                     class="num-order"
+                                                    data-id="<?php echo $item['id']; ?>"
                                                 >
                                             </td>
-                                            <td>
+                                            <td class="sub-total">
                                                 <?php echo format_price($item['sub_total']); ?>đ
                                             </td>
                                             <td>

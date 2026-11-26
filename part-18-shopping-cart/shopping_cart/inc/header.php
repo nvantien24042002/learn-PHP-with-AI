@@ -15,6 +15,8 @@
         <script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
         <script src="assets/js/bootstrap/bootstrap.min.js" type="text/javascript"></script>
         <script src="assets/js/main.js" type="text/javascript"></script>
+        <script src="assets/js/main.js" type="text/javascript"></script>
+        <script src="assets/js/cart.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="site">
