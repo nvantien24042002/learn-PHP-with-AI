@@ -6,6 +6,7 @@ use PHPMailer\PHPMailer\Exception;
 require __DIR__ . '/../../PHPMailer/src/Exception.php';
 require __DIR__ . '/../../PHPMailer/src/PHPMailer.php';
 require __DIR__ . '/../../PHPMailer/src/SMTP.php';
+$mail_config = require __DIR__ . '/../../config/mail.php';
 $list_buy = get_list_buy_cart();
 $total = get_total_cat();
 
@@ -46,13 +47,13 @@ if (isset($_POST['checkout'])) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'tiennguyenvan2102001@gmail.com';
-        $mail->Password   = 'sulc nain ezds efmc';
+        $mail->Username   = $mail_config['username'];
+        $mail->Password   = $mail_config['password'];
 
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port       = 465;
 
-        $mail->setFrom('tiennguyenvan2102001@gmail.com', 'NUOC DA STORE');
+        $mail->setFrom($mail_config['username'], $mail_config['from_name']);
         $mail->addAddress($email, $fullname);
 
         $mail->isHTML(true);
